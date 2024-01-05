@@ -23,6 +23,7 @@ import {
   Typography,
 } from "@mui/material";
 import ColorImage from "../assets/images/colour.png";
+import LogoImage from "../assets/images/ip.png";
 import { ColorContext } from "../extras/ColorContext";
 import MenuIcon from "@mui/icons-material/Menu";
 import SingleColor from "./SingleColor";
@@ -183,8 +184,8 @@ function UpMenu(props: any) {
   }
 
   return (
-    <div className="w-full">
-      {drawer}
+    <div>
+      {/* {drawer} */}
 
       <div className="w-full flex items-center justify-between border shadow-md">
         <div>
@@ -196,36 +197,19 @@ function UpMenu(props: any) {
         <div className="flex items-center">
           <img
             alt=""
-            src={ColorImage}
-            className="w-7 h-7 md:w-14 md:h-14 animate-spin"
+            src={LogoImage}
+            className="w-7 h-7 md:w-14 md:h-14"
           />
           <h1
             style={{ color: headingColor }}
-            className="p-5 text-center font-sans text-2xl md:text-6xl font-extrabold"
+            className="p-5 text-center font-sans text-2xl md:text-4xl font-extrabold"
           >
-            Ultimate Picker++
+            My IP Address
           </h1>
         </div>
 
         <div></div>
       </div>
-
-      {/* <div className="h-60 lg:mx-auto lg:w-2/4 flex flex-col items-center justify-center">
-        <h1
-          style={{ color: headingColor }}
-          className="p-5 text-center font-sans text-xl md:text-3xl font-extrabold"
-        >
-          Only Color Picker You Ever Need...
-        </h1>
-        <h2
-          style={{ color: headingColor }}
-          className="p-3 text-center text-sm md:text-lg font-mono italic"
-        >
-          All in one developer & designer friendly rich color picker for your
-          all requirements. Select your desired colors from 12 types of
-          different color picker
-        </h2>
-      </div> */}
     </div>
   );
 }

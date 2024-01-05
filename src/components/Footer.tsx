@@ -1,4 +1,4 @@
-import ColorImage from "../assets/images/colour.png";
+import LogoImage from "../assets/images/ip.png";
 
 function Footer(props: any) {
   function footerLinkAction(): void {
@@ -23,16 +23,16 @@ function Footer(props: any) {
   }
 
   return (
-    <div>
-      <div className="h-80 w-full mt-24 flex flex-col items-center justify-between bg-black">
+    <footer className="w-full">
+      <div className="h-40 w-full mt-24 flex flex-col items-center justify-between bg-black">
         <div className="w-full m-5 flex items-center justify-center">
-          <img alt="" src={ColorImage} className="w-7 h-7 animate-spin" />
+          <img alt="" src={LogoImage} className="w-7 h-7" />
           <h1 className="text-center ml-4 text-white font-sans text-lg font-bold">
-            Ultimate Picker++
+            My IP Address
           </h1>
         </div>
 
-        <div className="w-100%">
+        {/* <div className="w-100%">
           <div className="p-5 container grid grid-cols-3 md:grid-cols-4 gap-2 w-full">
             {heading("Sketch Picker")}
             {heading("Alpha Picker")}
@@ -47,9 +47,9 @@ function Footer(props: any) {
             {heading("Material Picker")}
             {heading("Twitter Picker")}
             {heading("Photoshop Picker")}
-            {heading("Swatches Picker")}
+            {heading("Swatches Picker")} 
           </div>
-        </div>
+        </div> */}
 
         <div className="m-4">
           <h5 className="text-center text-white font-sans text-xs font-bold">
@@ -66,7 +66,7 @@ function Footer(props: any) {
           </h5>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }
 

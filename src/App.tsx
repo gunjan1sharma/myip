@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import { ColorContext } from "./extras/ColorContext";
 import YourIP from "./excomponents/YourIp";
 import UpMenu from "./components/UpMenu";
-import PdfTextExtractor from "./excomponents/PdfTextExtractor";
+import Particle from "./components/Particle";
 
 function App() {
   const [color, setColor] = useState<string>("");
@@ -24,8 +24,8 @@ function App() {
       >
         
         <YourIP />
-        {/* <HomePage /> */}
       </ColorContext.Provider>
+
       <Footer />
     </div>
   );

@@ -1,18 +1,55 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { IPGeolocationResponse } from "../extras/types";
+import React, { useEffect, useMemo, useState } from "react";
+import { IPGeolocationResponse, ResponseKeyValueArray } from "../extras/types";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { IconButton } from "@mui/material";
+import KeyValueComponent from "../components/KvComponent";
+
 const IP_URL: string = `https://api.ipify.org?format=json`;
 const GEOLOOKUP_URL: string = `https://json.geoiplookup.io`;
+
+const sampleGeoResponse: IPGeolocationResponse = {
+  ip: "103.176.70.125",
+  isp: "Activline Telecom Pvt. Ltd.",
+  org: "Anigh Telecom Private Limited",
+  hostname: "103.176.70.125",
+  latitude: 27.8976,
+  longitude: 77.3841,
+  postal_code: "",
+  city: "Hodal",
+  country_code: "IN",
+  country_name: "India",
+  continent_code: "AS",
+  continent_name: "Asia",
+  region: "Haryana",
+  district: "Palwal",
+  timezone_name: "Asia/Kolkata",
+  connection_type: "Corporate",
+  asn_number: 137651,
+  asn_org: "Activline Telecom Pvt. Ltd.",
+  asn: "AS137651 - Activline Telecom Pvt. Ltd.",
+  currency_code: "INR",
+  currency_name: "Indian Rupee",
+  success: true,
+  premium: false,
+};
 
 function YourIP(props: any) {
   const [ip, setIp] = useState<string>("");
   const [geoLocationData, setGeoLocationData] =
     useState<IPGeolocationResponse>();
+  const [geoDataSet, setGeoDataSet] = useState<[string, any][] | null>(null);
 
   useEffect(() => {
-    getIPAddress();
+    //getIPAddress();
+    sampleDataBinding();
     return () => {};
   }, []);
+
+  function sampleDataBinding() {
+    const keyValueArray: [string, any][] = Object.entries(sampleGeoResponse);
+    setGeoDataSet(keyValueArray);
+  }
 
   function getIPAddress(): any {
     axios.get(IP_URL).then(
@@ -31,6 +68,17 @@ function YourIP(props: any) {
     );
   }
 
+  function copyColor(): any {
+    navigator.clipboard
+      .writeText(ip)
+      .then(() => {
+        alert("IP Address Copied to clipboard!");
+      })
+      .catch((error) => {
+        console.error("Failed to copy:", error);
+      });
+  }
+
   function getIPToGeoloacation(ipAddress: string): any {
     axios.get<IPGeolocationResponse>(GEOLOOKUP_URL + `/${ipAddress}`).then(
       (result) => {
@@ -40,6 +88,8 @@ function YourIP(props: any) {
         );
         setGeoLocationData(result.data);
         persistIPAndGeoLocationData(ip, result.data);
+        const keyValueArray: [string, any][] = Object.entries(result.data);
+        setGeoDataSet(keyValueArray);
       },
       (error) => {
         console.log("Error Occured while fetching result : " + error);
@@ -68,8 +118,22 @@ function YourIP(props: any) {
   function fetchIPAndGeoLocationData(): void {}
 
   return (
-    <div>
-      <h1>YourIP Component : {ip}</h1>
+    <div className="flex flex-col items-center m-10 z-20">
+      <div className="w-fit flex items-center justify-between border border-gray-400 p-4 shadow-lg">
+        <h3 className="text-sm md:text-lg font-mono font-bold">Your IP Address is </h3>
+        <h1 className="ml-5 mr-5 border border-green-400 p-3 font-extrabold text-lg">
+          192.168.70.01
+        </h1>
+        <IconButton onClick={copyColor}>
+          <ContentCopyIcon fontSize="large" />
+        </IconButton>
+      </div>
+
+      <div className="mt-10 w-fit flex flex-col items-center justify-between border border-gray-400 p-4 shadow-lg">
+        {geoDataSet?.map((keyValuePair, index) => (
+          <KeyValueComponent key={index} keyValuePair={keyValuePair} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -38,3 +38,5 @@ export interface IPGeolocationResponse {
   success: boolean;
   premium: boolean;
 }
+
+export type ResponseKeyValueArray = [string, any][];
