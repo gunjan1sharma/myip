@@ -70,7 +70,6 @@ function YourIP(props: any) {
         console.log("IP Address : " + result.data.ip);
         setIp(result.data.ip);
         getIPToGeoloacation(result.data.ip);
-        handleClose();
       },
       (error) => {
         console.log("Error Occured while fetching result : " + error);
@@ -117,6 +116,7 @@ function YourIP(props: any) {
         persistIPAndGeoLocationData(ip, result.data);
         const keyValueArray: [string, any][] = Object.entries(result.data);
         setGeoDataSet(keyValueArray);
+        handleClose();
       },
       (error) => {
         console.log("Error Occured while fetching result : " + error);
