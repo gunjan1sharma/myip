@@ -22,7 +22,6 @@ function App() {
           setColor: handleColorChange,
         }}
       >
-        
         <YourIP />
       </ColorContext.Provider>
 

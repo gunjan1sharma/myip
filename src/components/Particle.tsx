@@ -97,6 +97,8 @@ function Particle(props: any) {
         options={options}
         style={{
           height: "50%",
+          zIndex: -10,
+          position:"absolute"
         }}
       />
     </div>

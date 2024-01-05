@@ -24,7 +24,7 @@ function Footer(props: any) {
 
   return (
     <footer className="w-full">
-      <div className="h-40 w-full mt-24 flex flex-col items-center justify-between bg-black">
+      <div className="h-40 md:h-44 w-full mt-24 flex flex-col items-center justify-between bg-black">
         <div className="w-full m-5 flex items-center justify-center">
           <img alt="" src={LogoImage} className="w-7 h-7" />
           <h1 className="text-center ml-4 text-white font-sans text-lg font-bold">

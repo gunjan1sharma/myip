@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
 import { IPGeolocationResponse, ResponseKeyValueArray } from "../extras/types";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { IconButton } from "@mui/material";
+import { Backdrop, CircularProgress, IconButton } from "@mui/material";
 import KeyValueComponent from "../components/KvComponent";
 
 const IP_URL: string = `https://api.ipify.org?format=json`;
@@ -39,10 +39,19 @@ function YourIP(props: any) {
   const [geoLocationData, setGeoLocationData] =
     useState<IPGeolocationResponse>();
   const [geoDataSet, setGeoDataSet] = useState<[string, any][] | null>(null);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   useEffect(() => {
-    //getIPAddress();
-    sampleDataBinding();
+    handleOpen();
+    getIPAddress();
+    //sampleDataBinding();
     return () => {};
   }, []);
 
@@ -61,12 +70,30 @@ function YourIP(props: any) {
         console.log("IP Address : " + result.data.ip);
         setIp(result.data.ip);
         getIPToGeoloacation(result.data.ip);
+        handleClose();
       },
       (error) => {
         console.log("Error Occured while fetching result : " + error);
       }
     );
   }
+
+  const backdrop = (
+    <React.Fragment>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <div className="flex flex-col items-center">
+          <CircularProgress color="inherit" />
+          <h1 className="font-extrabold m-2 text-white text-xl">
+            Communicating with server...
+          </h1>
+        </div>
+      </Backdrop>
+    </React.Fragment>
+  );
 
   function copyColor(): any {
     navigator.clipboard
@@ -119,10 +146,13 @@ function YourIP(props: any) {
 
   return (
     <div className="flex flex-col items-center m-10 z-20">
+      {backdrop}
       <div className="w-fit flex items-center justify-between border border-gray-400 p-4 shadow-lg">
-        <h3 className="text-sm md:text-lg font-mono font-bold">Your IP Address is </h3>
+        <h3 className="text-sm md:text-lg font-mono font-bold">
+          Your IP Address is{" "}
+        </h3>
         <h1 className="ml-5 mr-5 border border-green-400 p-3 font-extrabold text-lg">
-          192.168.70.01
+          {ip}
         </h1>
         <IconButton onClick={copyColor}>
           <ContentCopyIcon fontSize="large" />
